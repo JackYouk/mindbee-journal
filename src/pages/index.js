@@ -31,7 +31,7 @@ export default function Home() {
     e.preventDefault();
     sendSignInLinkToEmail(auth, email, {
       // this is the URL that we will redirect back to after clicking on the link in mailbox
-      url: 'http://localhost:3000',
+      url: 'https://mindbee-journal.vercel.app',
       handleCodeInApp: true,
     }).then(() => {
       window.localStorage.setItem('email', email);
