@@ -1,4 +1,4 @@
-import { UserAuth } from "@/pages/context/AuthContext";
+import { UserAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 
 export default function Navbar() {

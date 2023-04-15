@@ -2,7 +2,7 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
 import { useRouter } from "next/router";
 import { initFirebase } from "../firebase";
-import { UserAuth } from "./context/AuthContext";
+import { UserAuth } from "../context/AuthContext";
 import { auth } from "../firebase";
 
 export default function Home() {
@@ -70,7 +70,7 @@ export default function Home() {
                 placeholder="example@email.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="input input-xs w-full w-40 focus:outline-none bg-white rounded-r-none text-gray-500"
+                className="input input-xs w-20 w-40 focus:outline-none bg-white rounded-r-none text-gray-500"
               />
               <button
                 className="w-auto btn-xs text-[7px] bg-gray-300 text-blue-400 rounded-r-lg px-5"

@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { useEffect, useState } from "react";
 import { collection, query, getDocs, orderBy, where, serverTimestamp, deleteDoc, addDoc, doc, setDoc } from "firebase/firestore";
-import { UserAuth } from "./context/AuthContext";
+import { UserAuth } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import { db } from "@/firebase";
 
