@@ -4,11 +4,17 @@ import { useRouter } from "next/router";
 import { initFirebase } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
 import { auth } from "../firebase";
+import { Gradient } from "@/components/GradientBG";
 
 export default function Home() {
   initFirebase();
   const router = useRouter();
   const { currentUser, googleSignin } = UserAuth();
+
+  useLayoutEffect(() => {
+    const gradient = new Gradient()
+    gradient.initGradient('#gradient-canvas')
+  }, []);
 
   const [linkSent, setLinkSent] = useState(false);
   const [email, setEmail] = useState('');
@@ -52,8 +58,9 @@ export default function Home() {
 
   return (
     <div className="h-[100dvh] overflow-hidden text-white w-full flex flex-row justify-center items-center">
-      <div className="w-12 bg-gray-400 h-[70dvh] rounded-tl rounded-bl drop-shadow-lg" />
+      <div className="w-12 bg-gray-600 h-[70dvh] rounded-tl rounded-bl drop-shadow-lg" />
       <div className="w-4/6 bg-blue-400 h-[70dvh] rounded-tr rounded-br p-2 drop-shadow-lg overflow-hidden">
+        <canvas id="gradient-canvas" data-transition-in />
         <h1 className="text-2xl font-bold mt-7">MindBee Journal</h1>
         <h2 className="text-xs">A mental health journal powered by ai</h2>
         <a onClick={handleGoogleLogin} className="btn btn-xs btn-secondary text-blue-400 mt-6">

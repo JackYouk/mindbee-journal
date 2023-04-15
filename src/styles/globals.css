@@ -27,10 +27,10 @@
   height: 100%;
   z-index: -1;
   /* border-radius: 14px 14px 14px 14px; */
-  --gradient-color-1: #76797b;
-  --gradient-color-2: #5a7aba;
-  --gradient-color-3: #262692;
-  --gradient-color-4: #31bfbf;
+  --gradient-color-1: #303132;
+  --gradient-color-2: #145313;
+  --gradient-color-3: #72bb25;
+  --gradient-color-4: #858b88;
 }
 
 /**
