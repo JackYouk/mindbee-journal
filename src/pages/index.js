@@ -60,7 +60,7 @@ export default function Home() {
     <div className="h-[100dvh] overflow-hidden text-white w-full flex flex-row justify-center items-center">
       <div className="w-12 bg-gray-600 h-[70dvh] rounded-tl rounded-bl drop-shadow-lg" />
       <div className="w-4/6 bg-blue-400 h-[70dvh] rounded-tr rounded-br p-2 drop-shadow-lg overflow-hidden">
-        <canvas id="gradient-canvas" data-transition-in />
+        {/* <canvas id="gradient-canvas" data-transition-in /> */}
         <h1 className="text-2xl font-bold mt-7">MindBee Journal</h1>
         <h2 className="text-xs">A mental health journal powered by ai</h2>
         <a onClick={handleGoogleLogin} className="btn btn-xs btn-secondary text-blue-400 mt-6">
