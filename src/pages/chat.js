@@ -45,9 +45,7 @@ export default function Chat() {
         }
     }
 
-    // useEffect(() => {
-    //     console.log(messagesEndRef.current.scrollIntoView({behavior: "smooth"}));
-    // }, [messages]);
+
 
     useEffect(() => {
         if (!currentUser) {

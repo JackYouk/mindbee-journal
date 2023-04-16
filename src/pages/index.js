@@ -60,7 +60,7 @@ export default function Home() {
     <div className="h-[100dvh] overflow-hidden w-full flex bg-gray-300 flex-row justify-center items-center">
       <div className="w-12 bg-gray-600 h-[70dvh] rounded-tl rounded-bl drop-shadow-lg" />
       <div className="w-4/6 bg-green-800 h-[70dvh] rounded-tr rounded-br p-2 drop-shadow-lg overflow-hidden">
-        <canvas className="w-full h-full" id="gradient-canvas" data-transition-in></canvas>
+        {window.innerWidth < 600 ? <></> : <canvas className="w-full h-full" id="gradient-canvas" data-transition-in></canvas>}
         <h1 className="text-2xl font-bold mt-7 text-gray-200">MindBee Journal</h1>
         <h2 className="text-xs text-gray-200">A mental health journal & therapist powered by ai</h2>
         <a onClick={handleGoogleLogin} className="btn btn-xs bg-gray-700 mt-6 text-gray-400 normal-case">
