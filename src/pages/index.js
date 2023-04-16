@@ -57,30 +57,30 @@ export default function Home() {
   }, [currentUser]);
 
   return (
-    <div className="h-[100dvh] overflow-hidden text-white w-full flex flex-row justify-center items-center">
+    <div className="h-[100dvh] overflow-hidden w-full flex bg-gray-300 flex-row justify-center items-center">
       <div className="w-12 bg-gray-600 h-[70dvh] rounded-tl rounded-bl drop-shadow-lg" />
-      <div className="w-4/6 bg-blue-400 h-[70dvh] rounded-tr rounded-br p-2 drop-shadow-lg overflow-hidden">
-        {/* <canvas id="gradient-canvas" data-transition-in /> */}
-        <h1 className="text-2xl font-bold mt-7">MindBee Journal</h1>
-        <h2 className="text-xs">A mental health journal powered by ai</h2>
-        <a onClick={handleGoogleLogin} className="btn btn-xs btn-secondary text-blue-400 mt-6">
-          <img src="./GoogleLogo.svg" style={{ height: '20px', marginRight: '5px' }} /> Login with Google
+      <div className="w-4/6 bg-green-800 h-[70dvh] rounded-tr rounded-br p-2 drop-shadow-lg overflow-hidden">
+        <canvas className="w-full h-full" id="gradient-canvas" data-transition-in></canvas>
+        <h1 className="text-2xl font-bold mt-7 text-gray-200">MindBee Journal</h1>
+        <h2 className="text-xs text-gray-200">A mental health journal & therapist powered by ai</h2>
+        <a onClick={handleGoogleLogin} className="btn btn-xs bg-gray-700 mt-6 text-gray-400 normal-case">
+          <img src="./GoogleLogo.svg" style={{ height: '15px', marginRight: '5px' }} /> Login with Google
         </a>
         {linkSent ? (
           <div className="mt-5 text-xs">Login link has been sent to your email, please verify to continue.</div>
         ) : (
           <div className="mt-5 containerWrap flex flex-col justify-center">
-            <label className="text-left text-xs">Passwordless Email Login</label>
+            <label className="text-left text-xs text-gray-200">Passwordless Email Login</label>
             <div className="flex">
               <input
                 type="email"
                 placeholder="example@email.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="input input-xs w-20 w-40 focus:outline-none bg-white rounded-r-none text-gray-500"
+                className="input input-xs w-20 w-40 focus:outline-none bg-gray-700 rounded-r-none text-gray-500"
               />
               <button
-                className="w-auto btn-xs text-[7px] bg-gray-300 text-blue-400 rounded-r-lg px-5"
+                className="w-auto btn-xs text-[7px] bg-gray-500 text-gray-400 rounded-r-lg px-5 normal-case"
                 onClick={handlePasswordlessLogin}
               >
                 Send Link

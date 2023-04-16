@@ -5,10 +5,10 @@ export default async function handler(req, res) {
     try {
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
-        line_items: {price: 'price_1MxCztCOgpiSAAJxKlqSsILX', quantity: 1},
+        line_items: [{price: 'price_1MxCztCOgpiSAAJxKlqSsILX', quantity: 1}],
         mode: 'payment',
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        success_url: `${req.headers.origin}/chat/?success=true`,
+        cancel_url: `${req.headers.origin}/chat/?canceled=true`,
       });
       res.redirect(303, session.url);
     } catch (err) {
