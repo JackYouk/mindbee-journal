@@ -7,7 +7,7 @@ import { auth } from "../firebase";
 import { Gradient } from "@/components/GradientBG";
 
 export default function Home() {
-  initFirebase();
+  // initFirebase();
   const router = useRouter();
   const { currentUser, googleSignin } = UserAuth();
 
@@ -88,6 +88,9 @@ export default function Home() {
             </div>
           </div>
         )}
+        <a onClick={() => {}} className="btn btn-xs bg-gray-700 mt-6 text-gray-400 normal-case">
+          Continue As Guest
+        </a>
         <img className=" w-full h-full" src="wasp.svg" />
       </div> 
     </div>
