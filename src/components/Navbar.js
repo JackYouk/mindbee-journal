@@ -21,7 +21,7 @@ export default function Navbar() {
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                {currentUser.photoURL ? <img src={currentUser.photoURL} /> : <div className="bg-gray-400 flex justify-center items-center"><img src="./emailIcon.svg" style={{width: '40px', marginTop: '3px'}}/></div>}
+                                {currentUser.photoURL ? <img src={currentUser.photoURL} /> : <div className="bg-gray-400 flex justify-center items-center"><img src="./guestIcon.png" style={{width: '40px', padding: '10px'}}/></div>}
                             </div>
                         </label>
                         <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-gray-800 rounded-box w-52">

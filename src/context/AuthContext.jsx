@@ -13,6 +13,11 @@ export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const guestSignin = () => {
+        localStorage.setItem('isGuestUser', 'true');
+        setCurrentUser('guest');
+    }
+
     const googleSignin = () => {
         const provider = new GoogleAuthProvider();
         signInWithRedirect(auth, provider);
@@ -32,16 +37,31 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const logout = () => signOut(auth);
+    const logout = () => {
+        if(!currentUser) return;
+        if(currentUser === 'guest') {
+            localStorage.setItem('isGuestUser', 'false');
+            setCurrentUser(null);
+            return;
+        }
+        signOut(auth);
+    }
 
     const value = {
         currentUser,
         setCurrentUser,
         googleSignin,
+        guestSignin,
         logout,
     }
 
     useEffect(() => {
+        const isGuestUser = localStorage.getItem('isGuestUser');
+        if(isGuestUser === 'true'){
+            setCurrentUser('guest');
+            setLoading(false);
+            return;
+        }
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
             setLoading(false);
@@ -50,6 +70,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
+        if(currentUser === 'guest') return;
         if (currentUser) {
             const q = query(
                 collection(db, "users"),

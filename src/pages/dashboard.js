@@ -10,6 +10,7 @@ export default function Dashboard() {
     const router = useRouter();
 
     function formatUTCDate(timestamp) {
+        console.log(timestamp)
         const date = new Date(timestamp * 1000);
         const options = {
             year: 'numeric',
@@ -29,6 +30,15 @@ export default function Dashboard() {
             return;
         }
         setLoading(true);
+        if (currentUser === 'guest') {
+            const jsonGuestEntries = localStorage.getItem('guestEntries');
+
+            const guestEntries = JSON.parse(jsonGuestEntries);
+            console.log(guestEntries)
+            setEntries(guestEntries);
+            setLoading(false);
+            return;
+        }
         const q = query(
             collection(db, "entries"),
             where("uid", "==", currentUser.uid),
@@ -59,6 +69,25 @@ export default function Dashboard() {
         }
         if (addEntryTitle.trim() === "" || addEntryContent.trim() === "") {
             alert("Enter valid message");
+            return;
+        }
+        if (currentUser === 'guest') {
+            const guestEntryData = {
+                id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+                title: addEntryTitle,
+                content: addEntryContent,
+                createdAt: { seconds: Math.floor(Date.now() / 1000) },
+            }
+            const rawCurrentGuestEntries = localStorage.getItem('guestEntries');
+            const currentGuestEntries = JSON.parse(rawCurrentGuestEntries);
+            if (!currentGuestEntries || currentGuestEntries.length === 0) {
+                localStorage.setItem('guestEntries', JSON.stringify([guestEntryData]));
+            } else {
+                currentGuestEntries.push(guestEntryData);
+                localStorage.setItem('guestEntries', JSON.stringify(currentGuestEntries));
+            }
+            setAddEntryActive(false);
+            router.reload(window.location.pathname);
             return;
         }
         try {
@@ -96,6 +125,20 @@ export default function Dashboard() {
             })
         }).then(response => response.json());
         if (response.res) {
+            if (currentUser === 'guest') {
+                const rawGuestEntries = localStorage.getItem('guestEntries');
+                const guestEntries = JSON.parse(rawGuestEntries);
+                const entryIndex = guestEntries.findIndex(entry => entry.id === id);
+                if (entryIndex !== -1) {
+                    guestEntries[entryIndex] = { ...guestEntries[entryIndex], aiSuggestion: response.res };
+                    localStorage.setItem('guestEntries', JSON.stringify(guestEntries));
+                } else {
+                    console.error(`No entry found with ID: ${entryId}`);
+                }
+                setActiveEntry({ ...activeEntry, aiSuggestion: response.res });
+                setGenerating(false);
+                return;
+            }
             await setDoc(doc(db, "entries", id), {
                 aiSuggestion: response.res
             }, { merge: true });
@@ -105,6 +148,14 @@ export default function Dashboard() {
     }
 
     const deleteEntry = async ({ id }) => {
+        if (currentUser === 'guest') {
+            const rawGuestEntries = localStorage.getItem('guestEntries');
+            const guestEntries = JSON.parse(rawGuestEntries);
+            const filteredEntries = guestEntries.filter(entry => entry.id !== id);
+            localStorage.setItem('guestEntries', JSON.stringify(filteredEntries));
+            router.reload(window.location.pathname);
+            return;
+        }
         await deleteDoc(doc(db, "entries", id));
         router.reload(window.location.pathname);
     }
@@ -136,7 +187,10 @@ export default function Dashboard() {
             <div className="pt-16 min-h-[100dvh] bg-gray-700 w-full flex flex-col items-center">
                 <div className="w-full p-4 grid gap-3 auto-rows-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div className="w-full h-full p-2 bg-gray-200 rounded border-gray-500 border-2 flex justify-between items-center drop-shadow z-8">
-                        <h3 className="text-md font-bold">New Entry</h3>
+                        <div>
+                            <h3 className="text-md font-bold">New Entry</h3>
+                            {currentUser === 'guest' ? <p className="text-xs text-warning max-w-96">You are currently in guest mode. Please logout and sign back in via email if you would like your entries to be accessible on any device.</p> : <></>}
+                        </div>
                         <a onClick={() => setAddEntryActive(true)} className="btn btn-sm btn-primary text-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-journal-plus" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z" />
