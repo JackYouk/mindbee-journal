@@ -25,7 +25,7 @@ export default function Navbar() {
                             </div>
                         </label>
                         <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-gray-800 rounded-box w-52">
-                            <li onClick={() => router.push('/chat')} >
+                            <li onClick={() => router.push('/dashboard')} >
                                 <a className="justify-between text-gray-200 hover:bg-gray-200 hover:text-gray-700">
                                     Journal
                                 </a>
