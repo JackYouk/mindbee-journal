@@ -187,10 +187,7 @@ export default function Dashboard() {
             <div className="pt-16 min-h-[100dvh] bg-gray-700 w-full flex flex-col items-center">
                 <div className="w-full p-4 grid gap-3 auto-rows-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div className="w-full h-full p-2 bg-gray-200 rounded border-gray-500 border-2 flex justify-between items-center drop-shadow z-8">
-                        <div>
-                            <h3 className="text-md font-bold">New Entry</h3>
-                            {currentUser === 'guest' ? <p className="text-xs text-warning max-w-96">You are currently in guest mode. Please logout and sign back in via email if you would like your entries to be accessible on any device.</p> : <></>}
-                        </div>
+                        <h3 className="text-md font-bold">New Entry</h3>
                         <a onClick={() => setAddEntryActive(true)} className="btn btn-sm btn-primary text-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-journal-plus" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z" />
